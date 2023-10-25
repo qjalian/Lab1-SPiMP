@@ -1,5 +1,3 @@
-from itertools import groupby
-
 def increasing_subsequences(sequence):
     current_sequence = []
 
@@ -11,18 +9,17 @@ def increasing_subsequences(sequence):
         else:
             current_sequence = [number]
 
-
 while True:
     user_input = input("Введите последовательность чисел, разделенных пробелами: ")
     try:
         user_numbers = [int(x) for x in user_input.split()]
-        user_numbers = [k for k, _ in groupby(user_numbers)]
+        user_numbers = [k for i, k in enumerate(user_numbers) if i == 0 or k != user_numbers[i - 1]]
         if len(user_numbers) == 1:
             print(user_numbers[0])
         else:
             previous_sequence = None
             for subsequence in increasing_subsequences(user_numbers):
                 print(subsequence)
-        break  
+        break
     except ValueError:
         print("Ошибка: Введите только целые числа, разделенные пробелами.")
